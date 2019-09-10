@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import axios from 'axios'
+import axios from "axios";
 
 export class EditExercise extends Component {
   constructor(props) {
@@ -23,31 +23,28 @@ export class EditExercise extends Component {
   }
 
   componentDidMount() {
-
-    axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
-    .then(res=>{
+    axios
+      .get("http://localhost:5000/exercises/" + this.props.match.params.id)
+      .then(res => {
         this.setState({
-            username:res.data.username,
-            description:res.data.description,
-            duration:res.data.duration,
-            date:new Date (res.data.date)
-        })
-    })
-    .catch(error=> {
-        console.log(error)
-    })
+          username: res.data.username,
+          description: res.data.description,
+          duration: res.data.duration,
+          date: new Date(res.data.date)
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-    axios.get('http://localhost:5000/users/')
-    .then(res=>{
-        if (res.data.length>0){
-            this.setState({
-                users:res.data.map(user =>user.username)
-            })
-        }
-    })
+    axios.get("http://localhost:5000/users/").then(res => {
+      if (res.data.length > 0) {
+        this.setState({
+          users: res.data.map(user => user.username)
+        });
+      }
+    });
   }
-
-  
 
   onChangeUsername(e) {
     this.setState({
@@ -85,10 +82,14 @@ export class EditExercise extends Component {
 
     console.log(exercise);
 
-    axios.post('http://localhost:5000/exercises/update/'+this.props.match.params.id, exercise)
-        .then(res => console.log(res.data))
-    
-        window.location='/'
+    axios
+      .post(
+        "http://localhost:5000/exercises/update/" + this.props.match.params.id,
+        exercise
+      )
+      .then(res => console.log(res.data));
+
+    window.location = "/";
   }
 
   render() {

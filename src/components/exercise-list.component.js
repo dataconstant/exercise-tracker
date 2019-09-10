@@ -2,17 +2,25 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Exercise = props =>(
-    <tr>
+const Exercise = props => (
+  <tr>
     <td>{props.exercise.username}</td>
     <td>{props.exercise.description}</td>
     <td>{props.exercise.duration}</td>
-    <td>{props.exercise.date.substring(0,10)}</td>
+    <td>{props.exercise.date.substring(0, 10)}</td>
     <td>
-      <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+      <Link to={"/edit/" + props.exercise._id}>edit</Link> |{" "}
+      <a
+        href="#"
+        onClick={() => {
+          props.deleteExercise(props.exercise._id);
+        }}
+      >
+        delete
+      </a>
     </td>
   </tr>
-)
+);
 
 export class ExerciseList extends Component {
   constructor(props) {
@@ -43,10 +51,16 @@ export class ExerciseList extends Component {
     });
   }
 
-  exerciseList(){
-      return this.state.exercises.map(currentexercise=>{
-          return <Exercise exercise={currentexercise} deleteExercise = {this.deleteExercise} key = {currentexercise._id}/>
-      })
+  exerciseList() {
+    return this.state.exercises.map(currentexercise => {
+      return (
+        <Exercise
+          exercise={currentexercise}
+          deleteExercise={this.deleteExercise}
+          key={currentexercise._id}
+        />
+      );
+    });
   }
 
   render() {
