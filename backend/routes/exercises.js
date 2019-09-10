@@ -44,7 +44,6 @@ router.route('/update/:id').post((req, res)=>{
     exercise.duration = req.body.duration;
     exercise.date = Date.parse(req.body.date);
     
-    
     exercise.save()
     .then(()=>res.json('Exercise Updated !'))
     .catch(err=>res.status(400).json('Error: '+err))
